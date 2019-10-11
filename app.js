@@ -21,6 +21,7 @@ app.use(cookieParser())
 const ALLOW_REGION = process.env.ACCESS_CONTROL_ALLOW_ORIGIN
 const ALLOW_METHODS = process.env.ACCESS_CONTROL_ALLOW_METHODS
 const ALLOW_HEADERS = process.env.ACCESS_CONTROL_ALLOW_HEADERS
+const PREFIX = process.env.PATH_PREFIX
 
 app.use((req, res, next) => {
   // Website you wish to allow to connect
@@ -41,10 +42,8 @@ app.use((req, res, next) => {
   next()
 })
 
-var prefix = '/notification-service/api/v1'
-
-app.use(`${prefix}`, indexRouter)
-app.use(`${prefix}/notify`, notifyRouter)
+app.use(`${PREFIX}`, indexRouter)
+app.use(`${PREFIX}/notify`, notifyRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
