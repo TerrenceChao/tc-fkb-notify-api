@@ -16,7 +16,7 @@ const {
 function genRegisterInZhTw(content) {
   var c = content
   return {
-    subject: `請驗證您的 Travemory 帳戶`,
+    subject: `請驗證您的 Travmory 帳戶`,
     text: `嗨， ${c.familyName} ${c.givenName}\n
 
     感謝您的註冊！ 請通過輸入以下驗證碼來確認您的電子郵件地址：
@@ -27,7 +27,7 @@ function genRegisterInZhTw(content) {
     
     ${REGISTRATION_URL}?token=${c['verify-token']}&code=${c.code}
     
-    如果您沒有註冊 Travemory 帳戶，請忽略此電子郵件。
+    如果您沒有註冊 Travmory 帳戶，請忽略此電子郵件。
     
      祝旅途愉快！
     Travemorer`
@@ -42,7 +42,7 @@ function genRegisterInZhTw(content) {
 function genRegisterInEn(content) {
   var c = content
   return {
-    subject: `Please verify your Travemory account`,
+    subject: `Please verify your Travmory account`,
     text: `Hi, ${c.givenName} ${c.familyName}\n
 
     Thanks for your registration! Please confirm your email address by enter the following verify code:
@@ -53,7 +53,7 @@ function genRegisterInEn(content) {
     
     ${REGISTRATION_URL}?token=${c['verify-token']}&code=${c.code}
     
-    If you did not sign up for a Travemory account please disregard this email.
+    If you did not sign up for a Travmory account please disregard this email.
     
     Happy traveling!
     Travemorer`
@@ -87,7 +87,7 @@ function genRegisterContent(content) {
 function genVerifyContentInZhTw(content) {
   var c = content
   return {
-    subject: `請驗證您的 Travemory 帳戶`,
+    subject: `請驗證您的 Travmory 帳戶`,
     text: `親愛的 ${c.familyName}${c.givenName} ${c.gender === 'male'?'先生':'女士'} 您好\n
     我們已收到你的密碼重設要求。
     請輸入以下驗證碼進行更改：
@@ -113,7 +113,7 @@ function genVerifyContentInZhTw(content) {
 function genVerifyContentInEn(content) {
   var c = content
   return {
-    subject: `Please verify your Travemory account`,
+    subject: `Please verify your Travmory account`,
     text: `Dear ${c.gender === 'male'?'Mr.':'Miss./Mrs.'} ${c.givenName} ${c.familyName}\n
     We have received your password-change requirement.
     Please enter the following verify code to change:

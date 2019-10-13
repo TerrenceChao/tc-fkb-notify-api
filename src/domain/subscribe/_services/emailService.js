@@ -16,10 +16,6 @@ module.exports = function (package) {
   const material = package.packet.content
   const content = util.genEmailContent(subject, material)
 
-  // console.log(`原始 email 封包:`, material)
-  // console.log(` email content subject:`, subject)
-  console.log(`email content:`, [content.subject, content.text])
-
   return Promise.resolve(help.fetchContact(package.receivers, ['email']))
     .then(receiverList => receiverList.forEach(receiver => util.sendMail(receiver.email, content)))
     .catch(err => console.error('\nError caught (email service):', err, `\n`))

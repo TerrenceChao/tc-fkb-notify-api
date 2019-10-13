@@ -37,8 +37,6 @@ exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
 
 
 // email
-exports.EMAIL_DOMAIN = process.env.MAILGUN_EMAIL_DOMAIN
-exports.EMAIL_API_KEY = process.env.MAILGUN_API_KEY
 // subjects of email
 exports.REGISTRATION_EMAIL = process.env.ACCOUNT_EVENT_REGISTRATION
 exports.VERIFICATION_EMAIL = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT

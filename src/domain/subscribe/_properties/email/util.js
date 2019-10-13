@@ -4,15 +4,26 @@
  * 其他串接第三方服務的不須等待 callback
  */
 
-var apiKey = require('../constant').EMAIL_API_KEY
-var domain = require('../constant').EMAIL_DOMAIN
-var maingun = require('mailgun-js')({ apiKey, domain })
 var template = require('./template')
 const C = require('../constant')
+
 const EMAIL_CONTENT = {
   [C.REGISTRATION_EMAIL]: template.genRegisterContent,
   [C.VERIFICATION_EMAIL]: template.genVerifyContent
 }
+
+
+var config = require('config').get('email')
+var mailgun = require('./lib/mailgun')
+var ses = require('./lib/ses')
+var logger = require('./lib/logger')
+
+const VENDOR = {
+  mailgun,
+  ses,
+  logger,
+}
+
 
 
 /**
@@ -30,23 +41,7 @@ function genEmailContent(subject, material) {
  * @param {Object} content 
  */
 function sendMail(to, content) {
-  const info = {
-    from: `no-reply@system.com`,
-    to,
-    subject: content.subject,
-    text: content.text
-  }
-
-  // maingun.messages().send(info, (err, body) => {
-  //   if (err) {
-  //     console.error(`Error: ${__dirname}.${arguments.callee.name}\n`, err)
-  //     return
-  //   }
-
-  //   console.log(`to:`, info.to)
-  //   console.log(`response:`, body)
-  // })
-  console.log([`暫時別真的寄送信件 ^_^a`, `假設信件已發送至:`, to])
+  VENDOR[config.specify].sendMail(to, content)
 }
 
 /**
