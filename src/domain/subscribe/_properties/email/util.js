@@ -37,19 +37,27 @@ function genEmailContent(subject, material) {
 
 /**
  * 
- * @param {string} to 
+ * @param {string} recipient 
  * @param {Object} content 
  */
-function sendMail(to, content) {
-  VENDOR[config.specify].sendMail(to, content)
+function sendMail(recipient, content) {
+  VENDOR[config.specify].sendMail(recipient, content)
 }
 
 /**
- * TODO: 在多筆資料庫紀錄中，區分不同的信件內容，並針對相同內容的多個收件人用 bcc 方式統一寄送同一封信。
+ * 
+ * @param {Array} recipientList 
+ * @param {Object} content 
+ */
+function sendMailList(recipientList, content) {
+  VENDOR[config.specify].sendMailList(recipientList, content)
+}
+
+/**
  * @param {array} recordList db columns
  */
-function sendMailList(recordList) {
-  
+function sendMailRecordList(recordList) {
+  // TODO: 在多筆資料庫紀錄中，區分不同的信件內容，並針對相同內容的多個收件人用 bcc 方式統一寄送同一封信。
 }
 
 

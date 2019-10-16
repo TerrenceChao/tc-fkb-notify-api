@@ -28,11 +28,17 @@ const CHARSET = 'UTF-8'
 // Create a new SES object. 
 var ses = new aws.SES()
 
-exports.sendMail = function (to, content) {
+
+/**
+ * @param {string} type   ToAddresses,CcAddresses,BccAddresses 
+ * @param {Array} addressList 
+ * @param {Object} content 
+ */
+function mailing(type, addressList, content) {
   var info = { 
     Source: emailConfig.sender, 
-    Destination: { 
-      ToAddresses: to.split(','),
+    Destination: {
+      [type]: addressList
     },
     Message: {
       Subject: {
@@ -60,7 +66,25 @@ exports.sendMail = function (to, content) {
       return
     }
 
-    console.log(`to:`, to)
+    console.log(`addressList:`, addressList)
     console.log("Email sent! Message ID: ", body.MessageId)
   })
+}
+
+
+
+/**
+ * @param {string} recipient 
+ * @param {Object} content 
+ */
+exports.sendMail = function (recipient, content) {
+  mailing(`ToAddresses`, recipient.split(','), content)
+}
+
+/**
+ * @param {Array} recipientList 
+ * @param {Object} content 
+ */
+exports.sendMailList = function (recipientList, content) {
+  mailing(`BccAddresses`, recipientList, content)
 }
