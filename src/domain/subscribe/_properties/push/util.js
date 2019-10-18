@@ -7,7 +7,7 @@
 var help = require('../helper')
 const request = require('request')
 const {
-  MESSAGING_HEADERS,
+  HEADERS,
   MESSAGING_PUSH_URL,
   RETRY_LIMIT,
   DELAY
@@ -22,7 +22,7 @@ function messagingRequest(userList, packet) {
   return Promise.resolve({
     method: 'PATCH',
       url: MESSAGING_PUSH_URL,
-      headers: MESSAGING_HEADERS,
+      headers: HEADERS,
       body: {
         receivers: userList,
         event: packet.event,

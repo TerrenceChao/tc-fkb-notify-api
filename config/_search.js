@@ -1,3 +1,8 @@
+/**
+ * [infrastructure-configuration]
+ */
+
+ 
 const ELASTICSEARCH_DOMAIN = process.env.ELASTICSEARCH_DOMAIN
 const SOLR_DOMAIN = process.env.SOLR_DOMAIN
 

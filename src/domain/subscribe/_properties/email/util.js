@@ -6,19 +6,15 @@
 
 var template = require('./template')
 const C = require('../constant')
-
 const EMAIL_CONTENT = {
-  [C.REGISTRATION_EMAIL]: template.genRegisterContent,
-  [C.VERIFICATION_EMAIL]: template.genVerifyContent
+  [C.EMAIL_REGISTRATION_FORM]: template.genRegisterContent,
+  [C.EMAIL_VERIFICATION_FORM]: template.genVerifyContent
 }
 
-
-var config = require('config').get('email')
 var mailgun = require('./lib/mailgun')
 var ses = require('./lib/ses')
 var logger = require('./lib/logger')
-
-const VENDOR = {
+const vendors = {
   mailgun,
   ses,
   logger,
@@ -41,7 +37,7 @@ function genEmailContent(subject, material) {
  * @param {Object} content 
  */
 function sendMail(recipient, content) {
-  VENDOR[config.specify].sendMail(recipient, content)
+  vendors[C.SPECIFY_EMAIL_VENDOR].sendMail(recipient, content)
 }
 
 /**
@@ -50,7 +46,7 @@ function sendMail(recipient, content) {
  * @param {Object} content 
  */
 function sendMailList(recipientList, content) {
-  VENDOR[config.specify].sendMailList(recipientList, content)
+  vendors[C.SPECIFY_EMAIL_VENDOR].sendMailList(recipientList, content)
 }
 
 /**

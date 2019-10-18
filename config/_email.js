@@ -1,3 +1,8 @@
+/**
+ * [infrastructure-configuration]
+ */
+
+ 
 module.exports = {
   sender: process.env.EMAIL_SENDER,
   vendor: {

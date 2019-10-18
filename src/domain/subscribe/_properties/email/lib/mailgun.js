@@ -1,5 +1,5 @@
-const emailConfig = require('config').get('email')
-const mailgun = require('mailgun-js')(emailConfig.vendor.mailgun)
+const C = require('../../constant')
+const mailgun = require('mailgun-js')(C.MAILGUN_CONFIG)
 
 /**
  * 
@@ -9,7 +9,7 @@ const mailgun = require('mailgun-js')(emailConfig.vendor.mailgun)
  */
 function mailing(type, addresses, content) {
   const info = {
-    from: emailConfig.sender,
+    from: C.EMAIL_SENDER,
     [type]: addresses,
     subject: content.subject,
     text: content.text

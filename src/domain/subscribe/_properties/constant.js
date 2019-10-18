@@ -1,35 +1,20 @@
-var config = require('config')
-
-// http
-exports.MESSAGING_HEADERS = {
-  'content-type': 'application/json'
-}
-exports.MESSAGING_PUSH_URL = `${process.env.MESSAGING_DOMAIN}${process.env.MESSAGING_PATH_PUSH}`
-
-const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN
-const FRONTEND_PATH_REGISTRATION = process.env.FRONTEND_PATH_REGISTRATION
-const FRONTEND_PATH_RECOVER_BY_CODE = process.env.FRONTEND_PATH_RECOVER_BY_CODE
-const FRONTEND_PATH_RECOVER_BY_PASSWORD = process.env.FRONTEND_PATH_RECOVER_BY_PASSWORD
-
-exports.REGISTRATION_URL = `${FRONTEND_DOMAIN}${FRONTEND_PATH_REGISTRATION}`
-exports.VERIFY_CODE_URL = `${FRONTEND_DOMAIN}${FRONTEND_PATH_RECOVER_BY_CODE}`
-exports.VERIFY_BY_RESET_PASSWORD_URL = `${FRONTEND_DOMAIN}${FRONTEND_PATH_RECOVER_BY_PASSWORD}`
-
-exports.RETRY_LIMIT = parseInt(process.env.RETRY_LIMIT) || 3
-exports.DELAY = parseInt(process.env.DELAY) || 500
+const config = require('config')
 
 
-// common format
-exports.INTERVAL = parseInt(process.env.INTERVAL) || 60
-
+/**
+ * [business-logic]
+ */
+// common
+exports.HEADERS = config.app.headers
+exports.RETRY_LIMIT = config.app.retryLimit
+exports.DELAY = config.app.delay
+exports.INTERVAL = config.app.interval
 exports.CATEGORIES = process.env.CATEGORIES.split(',')
-
 exports.ACCOUNT_IDENTITY = process.env.ACCOUNT_IDENTITY ?
   process.env.ACCOUNT_IDENTITY.split(',') : [
     'region',
     'uid',
   ]
-
 exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
   process.env.ACCOUNT_CONTACT_FIELDS.split(',') : [
     'email',
@@ -38,24 +23,43 @@ exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
   ]
 
 
-// email
-// subjects of email
-exports.REGISTRATION_EMAIL = process.env.ACCOUNT_EVENT_REGISTRATION
-exports.VERIFICATION_EMAIL = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
-
-// internail-search
-var search = config.get('search')
-exports.SEARCH_DOMAIN = search.vendor[search.specify].domain
+// subjects/events
+// (email)
+exports.EMAIL_REGISTRATION_FORM = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.EMAIL_VERIFICATION_FORM = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
+// (sms)
+exports.SMS_REGISTRATION_FORM = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.SMS_VERIFICATION_FORM = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
+// (internal-search)
 exports.SEARCH_EVENT_REGISTRATION = process.env.ACCOUNT_EVENT_REGISTRATION
 exports.SEARCH_EVENT_UPDATE_PUBLIC_INFO = process.env.SETTING_EVENT_UPDATE_PUBLIC_INFO
 
+// replaceable content elements
+exports.REGISTRATION_URL = config.frontend.registrationUrl
+exports.VERIFY_CODE_URL = config.frontend.verifyCodeUrl
+exports.VERIFY_BY_RESET_PASSWORD_URL = config.frontend.verifyByResetPasswordUrl
+
+
+
+/**
+ * [infrastructure-configuration]
+ */
+// common
+exports.HEADERS = config.app.headers
+exports.RETRY_LIMIT = config.app.retryLimit
+exports.DELAY = config.app.delay
+exports.INTERVAL = config.app.interval
+
+// app-push & web-push
+exports.MESSAGING_PUSH_URL = config.message.pushUrl
+
+// email
+exports.EMAIL_SENDER = config.email.sender
+exports.MAILGUN_CONFIG = config.email.vendor.mailgun
+exports.SPECIFY_EMAIL_VENDOR = config.email.specify
+
+// internail-search
+exports.SEARCH_DOMAIN = config.search.vendor[config.search.specify].domain
+
 // sms
-// subjects of sms()
-exports.REGISTRATION_SMS = process.env.ACCOUNT_EVENT_REGISTRATION
-exports.VERIFICATION_SMS = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
-
-// app-push
-
-// web-push
-
-// TODO: push
+// TODO: sms constant params

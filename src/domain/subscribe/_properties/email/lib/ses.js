@@ -1,7 +1,7 @@
 'use strict'
 
+const C = require('../../constant')
 const aws = require('aws-sdk')
-const emailConfig = require('config').get('email')
 aws.config.loadFromPath(`${__dirname}/config.json`)
 
 // Specify a configuration set. If you do not want to use a configuration
@@ -36,7 +36,7 @@ var ses = new aws.SES()
  */
 function mailing(type, addressList, content) {
   var info = { 
-    Source: emailConfig.sender, 
+    Source: C.EMAIL_SENDER, 
     Destination: {
       [type]: addressList
     },

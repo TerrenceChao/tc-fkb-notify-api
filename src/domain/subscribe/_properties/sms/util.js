@@ -7,8 +7,8 @@
 var template = require('./template')
 const C = require('../constant')
 const SMS_CONTENT = {
-  [C.REGISTRATION_SMS]: template.genRegisterContent,
-  [C.VERIFICATION_SMS]: template.genVerifyContent
+  [C.SMS_REGISTRATION_FORM]: template.genRegisterContent,
+  [C.SMS_VERIFICATION_FORM]: template.genVerifyContent
 }
 
 
