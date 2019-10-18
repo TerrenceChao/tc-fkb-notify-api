@@ -4,6 +4,7 @@
  * 其他串接第三方服務的不須等待 callback
  */
 
+var help = require('../helper')
 const request = require('request')
 const {
   MESSAGING_HEADERS,
@@ -15,12 +16,11 @@ const {
 /**
  * 對 message-service 推播訊息
  * @param {array} userList 
- * @param {Object} content 
+ * @param {Object} packet 
  */
-function messagingRequest(userList, packet, retry = 0) {
-  return new Promise((resolve, reject) => {
-    request({
-      method: 'PATCH',
+function messagingRequest(userList, packet) {
+  return Promise.resolve({
+    method: 'PATCH',
       url: MESSAGING_PUSH_URL,
       headers: MESSAGING_HEADERS,
       body: {
@@ -29,26 +29,10 @@ function messagingRequest(userList, packet, retry = 0) {
         content: packet.content
       },
       json: true
-    }, (err, response, body) => {
-      if (! err && response.statusCode === 200) {
-        console.log(`\nrequest success as ${MESSAGING_PUSH_URL}: \nbody`, body, `\n`)
-        return resolve(body)
-      }
-
-      if (! err && response.statusCode === 422) {
-        console.log(`\ninvalid request format:\n status code: ${response.statusCode}\nbody`, body, `\n`)
-        return resolve(body)
-      }
-
-      if (retry < RETRY_LIMIT) {
-        console.error(`\nmessaging req fail: `, err || body, `\n`)
-        setTimeout(() => resolve(messagingRequest(userList, packet, ++retry)), DELAY)
-      } else {
-        console.error(`\nmessaging req fail!\nreach the retry limit: ${RETRY_LIMIT}\n`)
-        reject(err || body)
-      }
-    })
   })
+  .then(options => help.requestHandler(`messaging`, options))
+  .catch(err => console.error(err))
+
 }
 
 module.exports = {
