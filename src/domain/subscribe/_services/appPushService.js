@@ -13,8 +13,8 @@ module.exports = async function (package) {
   const subject = package.packet.event
   const content = package.packet.content
 
-  console.log(`原始 app-push 接收者:`, package.receivers)
-  console.log(` app-push content subject:`, subject)
+  // console.log(`app-push receivers:`, package.receivers)
+  // console.log(` app-push content subject:`, subject)
   // console.log(`app-push content:`, [content])
 
   return Promise.resolve(true)

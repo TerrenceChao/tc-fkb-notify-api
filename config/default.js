@@ -23,4 +23,5 @@ function getParentDirPath (currentDir, specifyDir) {
 
 module.exports = {
   email: require('./_email'),
+  search: require('./_search'),
 }

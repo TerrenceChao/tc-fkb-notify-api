@@ -1,7 +1,14 @@
 var _ = require('lodash')
 var request = require('request')
 var hasKeys = require('../../../property/util').hasKeys
-const CONTACT_FIELDS = require('./constant').CONTACT_FIELDS
+const C = require('./constant')
+const STATUS_CODE = {
+  GET: 200,
+  POST: 201,
+  PUT: 200,
+  DELETE: 200
+}
+
 
 /**
  * TODO: 這裡可以善用 redis R/W
@@ -11,7 +18,7 @@ const CONTACT_FIELDS = require('./constant').CONTACT_FIELDS
  * @param {array} userInfoList 
  * @param {array} selectFields 
  */
-function fetchContact(userInfoList, selectFields = CONTACT_FIELDS) {
+function fetchContact(userInfoList, selectFields = C.ACCOUNT_CONTACT_FIELDS) {
   return Promise.all(userInfoList.map(userInfo => {
       if (hasKeys(userInfo, selectFields)) {
         return userInfo
@@ -44,7 +51,41 @@ function fetchContact(userInfoList, selectFields = CONTACT_FIELDS) {
     }))
 }
 
+/**
+ * 
+ * @param {string} desc  request desction
+ * @param {Object} options request params
+ * @param {Object} successCode status code if success
+ * @param {*} retry 
+ */
+function requestHandler(desc, options, successCode = null, retry = 0) {
+  return new Promise((resolve, reject) => {
+    let success = successCode ? successCode : STATUS_CODE[options.method]
+
+    request(options, (err, response, body) => {
+      if (! err && response.statusCode === success) {
+        console.log(`\n[${desc}] request success as ${options.url}: \nbody`, body, `\n`)
+        return resolve(body)
+      }
+
+      if (! err && response.statusCode === 422) {
+        console.log(`\ninvalid request format:\n status code: ${response.statusCode}\nbody`, body, `\n`)
+        return resolve(body)
+      }
+
+      if (retry < C.RETRY_LIMIT) {
+        console.error(`\n[${desc}] request FAIL: `, err || body, `\n`)
+        setTimeout(() => resolve(requestHandler(desc, options, successCode, ++retry)), C.DELAY)
+      } else {
+        console.error(`\n[${desc}] request FAIL!\nreach the retry limit: ${C.RETRY_LIMIT}\n`)
+        reject(err || body)
+      }
+    })
+
+  })
+}
 
 module.exports = {
   fetchContact,
+  requestHandler,
 }

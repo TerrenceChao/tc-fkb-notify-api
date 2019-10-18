@@ -18,9 +18,9 @@ module.exports = function (package) {
 
   // console.log(`原始 sms 封包:`, material)
   // console.log(` sms content subject:`, subject)
-  console.log(`sms content:`, [content])
+  // console.log(`sms content:`, [content])
 
-  return Promise.resolve(help.fetchContact(package.receivers, ['sms', 'phone']))
+  return Promise.resolve(help.fetchContact(package.receivers, ['phone']))
     .then(receiverList => console.log(`\nSMS(Phone) receivers:`, receiverList, `\n`))
     .catch(err => console.error('\nError caught (sms service):', err, `\n`))
 }

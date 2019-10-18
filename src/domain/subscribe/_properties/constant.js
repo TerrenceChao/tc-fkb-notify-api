@@ -1,3 +1,5 @@
+var config = require('config')
+
 // http
 exports.MESSAGING_HEADERS = {
   'content-type': 'application/json'
@@ -42,6 +44,10 @@ exports.REGISTRATION_EMAIL = process.env.ACCOUNT_EVENT_REGISTRATION
 exports.VERIFICATION_EMAIL = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
 
 // internail-search
+var search = config.get('search')
+exports.SEARCH_DOMAIN = search.vendor[search.specify].domain
+exports.SEARCH_EVENT_REGISTRATION = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.SEARCH_EVENT_UPDATE_PUBLIC_INFO = process.env.SETTING_EVENT_UPDATE_PUBLIC_INFO
 
 // sms
 // subjects of sms()

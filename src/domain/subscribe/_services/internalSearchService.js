@@ -1,5 +1,15 @@
-var helper = require('../_properties/helper')
+var help = require('../_properties/helper')
+var util = require('../_properties/internal-search/util')
+const {
+  ACCOUNT_IDENTITY,
+  SEARCH_EVENT_REGISTRATION,
+  SEARCH_EVENT_UPDATE_PUBLIC_INFO
+} = require('../_properties/constant')
 
+const operation = {
+  [SEARCH_EVENT_REGISTRATION]: util.createDoc,
+  [SEARCH_EVENT_UPDATE_PUBLIC_INFO]: util.updateDoc,
+}
 
 /**
  * TODO: [special-improved]
@@ -10,12 +20,19 @@ var helper = require('../_properties/helper')
  * 4. [await] update msgs status: {sent: 1}
  */
 module.exports = function (package) {
-  try {
+  // try {
     const receivers = package.receivers
+    const event = package.packet.event
     const content = package.packet.content
 
-    console.log(`internal-search content:`, content)
-  } catch(err) {
-    console.error(`\nError caught (internal-search service):`, err, `\n`)
-  }
+  //   console.log(`\ninternal-search \nreceivers:`, receivers)
+  //   console.log(`\n{internal search} event:`, event, `\n`)
+  //   console.log(`content:`, content, `\n`)
+  // } catch(err) {
+  //   console.error(`\nError caught (internal-search service):`, err, `\n`)
+  // }
+
+  return Promise.resolve(help.fetchContact(receivers, ACCOUNT_IDENTITY))
+    .then(receiverList => receiverList.forEach(receiver => operation[event](receiver, content)))
+    .catch(err => console.error(`\nError caught (internal-search service):`, err, `\n`))
 }
