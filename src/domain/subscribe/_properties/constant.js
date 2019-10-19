@@ -5,10 +5,6 @@ const config = require('config')
  * [business-logic]
  */
 // common
-exports.HEADERS = config.app.headers
-exports.RETRY_LIMIT = config.app.retryLimit
-exports.DELAY = config.app.delay
-exports.INTERVAL = config.app.interval
 exports.CATEGORIES = process.env.CATEGORIES.split(',')
 exports.ACCOUNT_IDENTITY = process.env.ACCOUNT_IDENTITY ?
   process.env.ACCOUNT_IDENTITY.split(',') : [
