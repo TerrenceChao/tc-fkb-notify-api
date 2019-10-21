@@ -74,7 +74,7 @@ function genVerifyContentInZhTw(content) {
  */
 function genVerifyContentInEn(content) {
   var c = content
-  return `Dear ${c.gender === 'male'?'Mr.':'Miss./Mrs.'} ${c.givenName} ${c.familyName}\n
+  return `Dear ${c.gender === 'male'?'Mr.':'Ms.'} ${c.givenName} ${c.familyName}\n
     We have received your password reset requirement.
     Please enter the following verify code to reset:
     ${c.code}`

@@ -114,7 +114,7 @@ function genVerifyContentInEn(content) {
   var c = content
   return {
     subject: `Please verify your Travmory account`,
-    text: `Dear ${c.gender === 'male'?'Mr.':'Miss./Mrs.'} ${c.givenName} ${c.familyName}\n
+    text: `Dear ${c.gender === 'male'?'Mr.':'Ms.'} ${c.givenName} ${c.familyName}\n
     We have received your password-change requirement.
     Please enter the following verify code to change:
 
