@@ -17,48 +17,45 @@ var logger = require('./lib/logger')
 const vendors = {
   mailgun,
   ses,
-  logger,
+  logger
 }
-
-
 
 /**
  * generate email content
- * @param {string} subject subjects of email 
+ * @param {string} subject subjects of email
  * @param {Object} material email's content material
  */
-function genEmailContent(subject, material) {
+function genEmailContent (subject, material) {
   return EMAIL_CONTENT[subject](material)
 }
 
 /**
- * 
- * @param {string} recipient 
- * @param {Object} content 
+ *
+ * @param {string} recipient
+ * @param {Object} content
  */
-function sendMail(recipient, content) {
+function sendMail (recipient, content) {
   vendors[C.SPECIFY_EMAIL_VENDOR].sendMail(recipient, content)
 }
 
 /**
- * 
- * @param {Array} recipientList 
- * @param {Object} content 
+ *
+ * @param {Array} recipientList
+ * @param {Object} content
  */
-function sendMailList(recipientList, content) {
+function sendMailList (recipientList, content) {
   vendors[C.SPECIFY_EMAIL_VENDOR].sendMailList(recipientList, content)
 }
 
 /**
  * @param {array} recordList db columns
  */
-function sendMailRecordList(recordList) {
+function sendMailRecordList (recordList) {
   // TODO: 在多筆資料庫紀錄中，區分不同的信件內容，並針對相同內容的多個收件人用 bcc 方式統一寄送同一封信。
 }
-
 
 module.exports = {
   genEmailContent,
   sendMail,
-  sendMailList,
+  sendMailList
 }

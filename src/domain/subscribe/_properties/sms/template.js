@@ -1,12 +1,12 @@
 /**
  * generate registration content as specified language: [zh-tw]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * 
+ *
  * [NOTE]
  * lang: 'zh-tw' 注意用中文的 template 是否會變成亂碼:
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterInZhTw(content) {
+function genRegisterInZhTw (content) {
   var c = content
   return `嗨， ${c.familyName} ${c.givenName}\n
 
@@ -21,9 +21,9 @@ function genRegisterInZhTw(content) {
 /**
  * generate registration content as specified language: [en]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterInEn(content) {
+function genRegisterInEn (content) {
   var c = content
   return `Hi, ${c.givenName} ${c.familyName}\n
 
@@ -37,9 +37,9 @@ function genRegisterInEn(content) {
 
 /**
  * generate registration content for sending email
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterContent(content) {
+function genRegisterContent (content) {
   var lang = content.lang
   var registerContent = {
     'zh-tw': genRegisterInZhTw,
@@ -49,19 +49,17 @@ function genRegisterContent(content) {
   return registerContent[lang](content)
 }
 
-
-
 /**
  * generate verification content as specified language: [zh-tw]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * 
+ *
  * [NOTE]
  * lang: 'zh-tw' 注意用中文的 template 是否會變成亂碼:
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContentInZhTw(content) {
+function genVerifyContentInZhTw (content) {
   var c = content
-  return `親愛的 ${c.familyName} ${c.givenName} ${c.gender === 'male'?'先生':'女士'} 您好\n
+  return `親愛的 ${c.familyName} ${c.givenName} ${c.gender === 'male' ? '先生' : '女士'} 您好\n
     我們已收到你的 Fakebook 密碼重設要求。
     輸入以下密碼重設確認碼：
     ${c.code}`
@@ -70,11 +68,11 @@ function genVerifyContentInZhTw(content) {
 /**
  * generate verification content as specified language: [en]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContentInEn(content) {
+function genVerifyContentInEn (content) {
   var c = content
-  return `Dear ${c.gender === 'male'?'Mr.':'Ms.'} ${c.givenName} ${c.familyName}\n
+  return `Dear ${c.gender === 'male' ? 'Mr.' : 'Ms.'} ${c.givenName} ${c.familyName}\n
     We have received your password reset requirement.
     Please enter the following verify code to reset:
     ${c.code}`
@@ -82,9 +80,9 @@ function genVerifyContentInEn(content) {
 
 /**
  * generate verification content for sending SMS
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContent(content) {
+function genVerifyContent (content) {
   var lang = content.lang
   var verifyContent = {
     'zh-tw': genVerifyContentInZhTw,
@@ -94,8 +92,7 @@ function genVerifyContent(content) {
   return verifyContent[lang](content)
 }
 
-
 module.exports = {
   genRegisterContent,
-  genVerifyContent,
+  genVerifyContent
 }

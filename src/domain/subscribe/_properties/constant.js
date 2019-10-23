@@ -1,6 +1,5 @@
 const config = require('config')
 
-
 /**
  * [business-logic]
  */
@@ -9,15 +8,14 @@ exports.CATEGORIES = process.env.CATEGORIES.split(',')
 exports.ACCOUNT_IDENTITY = process.env.ACCOUNT_IDENTITY ?
   process.env.ACCOUNT_IDENTITY.split(',') : [
     'region',
-    'uid',
+    'uid'
   ]
 exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
   process.env.ACCOUNT_CONTACT_FIELDS.split(',') : [
     'email',
     'phone',
-    'device',
+    'device'
   ]
-
 
 // subjects/events
 // (email)
@@ -34,8 +32,6 @@ exports.SEARCH_EVENT_UPDATE_PUBLIC_INFO = process.env.SETTING_EVENT_UPDATE_PUBLI
 exports.REGISTRATION_URL = config.frontend.registrationUrl
 exports.VERIFY_CODE_URL = config.frontend.verifyCodeUrl
 exports.VERIFY_BY_RESET_PASSWORD_URL = config.frontend.verifyByResetPasswordUrl
-
-
 
 /**
  * [infrastructure-configuration]

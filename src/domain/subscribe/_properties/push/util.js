@@ -5,36 +5,32 @@
  */
 
 var help = require('../helper')
-const request = require('request')
 const {
   HEADERS,
-  MESSAGING_PUSH_URL,
-  RETRY_LIMIT,
-  DELAY
+  MESSAGING_PUSH_URL
 } = require('../constant')
 
 /**
  * 對 message-service 推播訊息
- * @param {array} userList 
- * @param {Object} packet 
+ * @param {array} userList
+ * @param {Object} packet
  */
-function messagingRequest(userList, packet) {
+function messagingRequest (userList, packet) {
   return Promise.resolve({
     method: 'PATCH',
-      url: MESSAGING_PUSH_URL,
-      headers: HEADERS,
-      body: {
-        receivers: userList,
-        event: packet.event,
-        content: packet.content
-      },
-      json: true
+    url: MESSAGING_PUSH_URL,
+    headers: HEADERS,
+    body: {
+      receivers: userList,
+      event: packet.event,
+      content: packet.content
+    },
+    json: true
   })
-  .then(options => help.requestHandler(`messaging`, options))
-  .catch(err => console.error(err))
-
+    .then(options => help.requestHandler('messaging', options))
+    .catch(err => console.error(err))
 }
 
 module.exports = {
-  messagingRequest,
+  messagingRequest
 }

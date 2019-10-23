@@ -1,6 +1,5 @@
 var util = require('../_properties/push/util')
 
-
 /**
  * TODO: [special-improved]
  * 1. [no-await] create one record({sent: 0}) in DB if there's [no-duplicate].
@@ -9,14 +8,14 @@ var util = require('../_properties/push/util')
  * 3. [await] process messages. (read multiple user info according {uid, region} and deliver messages by SMS,email,...etc)
  * 4. [await] update msgs status: {sent: 1}
  */
-module.exports = async function (package) {
-  const subject = package.packet.event
-  const content = package.packet.content
+module.exports = async function (messagePkg) {
+  // const subject = messagePkg.packet.event
+  // const content = messagePkg.packet.content
 
-  // console.log(`app-push receivers:`, package.receivers)
+  // console.log(`app-push receivers:`, messagePkg.receivers)
   // console.log(` app-push content subject:`, subject)
   // console.log(`app-push content:`, [content])
 
   return Promise.resolve(true)
-    .catch(err => console.error('\nError caught (app-push service):', err, `\n`))
+    .catch(err => console.error('\nError caught (app-push service):', err, '\n'))
 }

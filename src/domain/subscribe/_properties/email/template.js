@@ -4,16 +4,15 @@ const {
   VERIFY_BY_RESET_PASSWORD_URL
 } = require('../constant')
 
-
 /**
  * generate registration content as specified language: [zh-tw]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * 
+ *
  * [NOTE]
  * lang: 'zh-tw' 注意用中文的 template 是否會變成亂碼:
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterInZhTw(content) {
+function genRegisterInZhTw (content) {
   var c = content
   return {
     subject: `請驗證您的 Travmory 帳戶`,
@@ -37,9 +36,9 @@ function genRegisterInZhTw(content) {
 /**
  * generate registration content as specified language: [en]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterInEn(content) {
+function genRegisterInEn (content) {
   var c = content
   return {
     subject: `Please verify your Travmory account`,
@@ -62,9 +61,9 @@ function genRegisterInEn(content) {
 
 /**
  * generate registration content for sending email
- * @param {Object} content 
+ * @param {Object} content
  */
-function genRegisterContent(content) {
+function genRegisterContent (content) {
   var lang = content.lang
   var registerContent = {
     'zh-tw': genRegisterInZhTw,
@@ -74,21 +73,19 @@ function genRegisterContent(content) {
   return registerContent[lang](content)
 }
 
-
-
 /**
  * generate verification content as specified language: [zh-tw]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * 
+ *
  * [NOTE]
  * lang: 'zh-tw' 注意用中文的 template 是否會變成亂碼:
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContentInZhTw(content) {
+function genVerifyContentInZhTw (content) {
   var c = content
   return {
     subject: `請驗證您的 Travmory 帳戶`,
-    text: `親愛的 ${c.familyName}${c.givenName} ${c.gender === 'male'?'先生':'女士'} 您好\n
+    text: `親愛的 ${c.familyName}${c.givenName} ${c.gender === 'male' ? '先生' : '女士'} 您好\n
     我們已收到你的密碼重設要求。
     請輸入以下驗證碼進行更改：
 
@@ -108,13 +105,13 @@ function genVerifyContentInZhTw(content) {
 /**
  * generate verification content as specified language: [en]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContentInEn(content) {
+function genVerifyContentInEn (content) {
   var c = content
   return {
     subject: `Please verify your Travmory account`,
-    text: `Dear ${c.gender === 'male'?'Mr.':'Ms.'} ${c.givenName} ${c.familyName}\n
+    text: `Dear ${c.gender === 'male' ? 'Mr.' : 'Ms.'} ${c.givenName} ${c.familyName}\n
     We have received your password-change requirement.
     Please enter the following verify code to change:
 
@@ -133,9 +130,9 @@ function genVerifyContentInEn(content) {
 
 /**
  * generate verification content for sending email
- * @param {Object} content 
+ * @param {Object} content
  */
-function genVerifyContent(content) {
+function genVerifyContent (content) {
   var lang = content.lang
   var verifyContent = {
     'zh-tw': genVerifyContentInZhTw,
@@ -145,8 +142,7 @@ function genVerifyContent(content) {
   return verifyContent[lang](content)
 }
 
-
 module.exports = {
   genRegisterContent,
-  genVerifyContent,
+  genVerifyContent
 }

@@ -2,7 +2,6 @@
  * [infrastructure-configuration]
  */
 
- 
 const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN
 const FRONTEND_PATH_REGISTRATION = process.env.FRONTEND_PATH_REGISTRATION
 const FRONTEND_PATH_RECOVER_BY_CODE = process.env.FRONTEND_PATH_RECOVER_BY_CODE
@@ -12,5 +11,5 @@ module.exports = {
   domain: process.env.FRONTEND_DOMAIN,
   registrationUrl: `${FRONTEND_DOMAIN}${FRONTEND_PATH_REGISTRATION}`,
   verifyCodeUrl: `${FRONTEND_DOMAIN}${FRONTEND_PATH_RECOVER_BY_CODE}`,
-  verifyByResetPasswordUrl: `${FRONTEND_DOMAIN}${FRONTEND_PATH_RECOVER_BY_PASSWORD}`,
+  verifyByResetPasswordUrl: `${FRONTEND_DOMAIN}${FRONTEND_PATH_RECOVER_BY_PASSWORD}`
 }

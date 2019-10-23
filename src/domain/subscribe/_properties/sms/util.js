@@ -11,17 +11,15 @@ const SMS_CONTENT = {
   [C.SMS_VERIFICATION_FORM]: template.genVerifyContent
 }
 
-
 /**
  * generate sms content
- * @param {string} subject subjects of sms 
+ * @param {string} subject subjects of sms
  * @param {Object} material sms's content material
  */
-function genSMSContent(subject, material) {
+function genSMSContent (subject, material) {
   return SMS_CONTENT[subject](material)
 }
 
-
 module.exports = {
-  genSMSContent,
+  genSMSContent
 }

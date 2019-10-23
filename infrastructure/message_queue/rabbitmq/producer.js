@@ -44,14 +44,14 @@ class RabbitMQ {
             if (channel) { channel.close() }
           }, 500)
 
-          return Promise.reject(new Error('message published fail'))
+          return Promise.reject(new Error('message publish fail'))
         })
       )
       .catch(err => {
         console.error('[ERROR]', err)
         self.connect()
 
-        return Promise.reject(new Error('message published fail'))
+        return Promise.reject(new Error('message publish fail'))
       })
   }
 }

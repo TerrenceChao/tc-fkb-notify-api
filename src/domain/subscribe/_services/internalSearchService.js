@@ -8,7 +8,7 @@ const {
 
 const operation = {
   [SEARCH_EVENT_REGISTRATION]: util.createDoc,
-  [SEARCH_EVENT_UPDATE_PUBLIC_INFO]: util.updateDoc,
+  [SEARCH_EVENT_UPDATE_PUBLIC_INFO]: util.updateDoc
 }
 
 /**
@@ -19,11 +19,11 @@ const operation = {
  * 3. [await] process messages. (read multiple user info according {uid, region} and deliver messages by SMS,email,...etc)
  * 4. [await] update msgs status: {sent: 1}
  */
-module.exports = function (package) {
+module.exports = function (messagePkg) {
   // try {
-    const receivers = package.receivers
-    const event = package.packet.event
-    const content = package.packet.content
+  const receivers = messagePkg.receivers
+  const event = messagePkg.packet.event
+  const content = messagePkg.packet.content
 
   //   console.log(`\ninternal-search \nreceivers:`, receivers)
   //   console.log(`\n{internal search} event:`, event, `\n`)
@@ -34,5 +34,5 @@ module.exports = function (package) {
 
   return Promise.resolve(help.fetchContact(receivers, ACCOUNT_IDENTITY))
     .then(receiverList => receiverList.forEach(receiver => operation[event](receiver, content)))
-    .catch(err => console.error(`\nError caught (internal-search service):`, err, `\n`))
+    .catch(err => console.error('\nError caught (internal-search service):', err, '\n'))
 }
