@@ -16,7 +16,17 @@ function createdSuccess (req, res, next) {
   res.status(201).json(res.locals)
 }
 
+function createdFail (err, req, res, next) {
+  res.locals.meta = res.locals.meta || {
+    msgCode: '999999',
+    msg: err.message
+  }
+
+  res.status(500).json(res.locals)
+}
+
 module.exports = {
   success,
-  createdSuccess
+  createdSuccess,
+  createdFail
 }

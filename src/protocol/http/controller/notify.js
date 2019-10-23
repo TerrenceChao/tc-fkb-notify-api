@@ -3,12 +3,8 @@ const publishHandler = require('../../../domain/publish/_handler/publishHandler'
 const subscribeHandler = require('../../../domain/subscribe/_handler/subscribeHandler')
 
 exports.publish = (req, res, next) => {
-  publishHandler(req.body.category, _.omit(req.body, ['category']))
   subscribeHandler()
-  next()
+  Promise.resolve(publishHandler(req.body.category, _.omit(req.body, ['category'])))
+    .then(() => next())
+    .catch(err => next(err))
 }
-
-// exports.subscribe = (req, res, next) => {
-//   subscribeHandler()
-//   next()
-// }

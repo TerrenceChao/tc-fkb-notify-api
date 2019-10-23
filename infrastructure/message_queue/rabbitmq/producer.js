@@ -1,20 +1,36 @@
-let amqp = require('amqplib')
+const amqp = require('amqplib')
 
 class RabbitMQ {
-  constructor() {
+  constructor () {
+    this.connect()
+  }
+
+  connect () {
     this.hosts = []
     this.index = 0
     this.length = this.hosts.length
     this.open = amqp.connect(this.hosts[this.index])
+
+    return this.open
   }
 
-  sendQueueMsg(queueName, msg, callbackMsg) {
-    let self = this
+  reconnect () {
+    const num = this.index++
+    if (num <= this.length - 1) {
+      this.open = amqp.connect(this.hosts[num])
+    } else {
+      this.index = 0
+    }
 
-    self.open
+    return this.open
+  }
+
+  sendQueueMsg (queueName, msg, callbackMsg) {
+    const self = this
+
+    return Promise.resolve(self.open)
       .then((conn) => conn.createChannel())
-      .then((channel) => channel
-        .assertQueue(queueName)
+      .then((channel) => channel.assertQueue(queueName)
         .then(ok => channel.sendToQueue(queueName, Buffer.from(msg), { persistent: true }))
         .then(data => {
           if (data) {
@@ -22,20 +38,22 @@ class RabbitMQ {
             channel.close()
           }
         })
-        .catch(()=> setTimeout(() => {
-          if (channel) { channel.close() }
-        }, 500))
+        .catch(err => {
+          console.error('[ERROR]', err)
+          setTimeout(() => {
+            if (channel) { channel.close() }
+          }, 500)
+
+          return Promise.reject(new Error('message published fail'))
+        })
       )
-      .catch(() => {
-        let num = self.index++
-        if (num <= self.length - 1) {
-          self.open = amqp.connect(self.hosts[num])
-        } else {
-          self.index = 0
-        }
+      .catch(err => {
+        console.error('[ERROR]', err)
+        self.connect()
+
+        return Promise.reject(new Error('message published fail'))
       })
   }
 }
-
 
 module.exports = new RabbitMQ()
