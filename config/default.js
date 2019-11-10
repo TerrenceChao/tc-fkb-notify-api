@@ -5,5 +5,5 @@ module.exports = {
   email: require('./_email'),
   message: require('./_message'),
   frontend: require('./_frontend'),
-  search: require('./_search'),
+  search: require('./_search')
 }
