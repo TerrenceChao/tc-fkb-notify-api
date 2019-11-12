@@ -1,3 +1,5 @@
+const { DEFAULT_LANG } = require('../constant')
+
 /**
  * generate registration content as specified language: [zh-tw]
  * content includes 'region', 'lang', 'givenName', 'familyName', 'gender'
@@ -40,7 +42,7 @@ function genRegisterInEn (content) {
  * @param {Object} content
  */
 function genRegisterContent (content) {
-  var lang = content.lang
+  var lang = content.lang || DEFAULT_LANG
   var registerContent = {
     'zh-tw': genRegisterInZhTw,
     'en': genRegisterInEn
@@ -83,7 +85,7 @@ function genVerifyContentInEn (content) {
  * @param {Object} content
  */
 function genVerifyContent (content) {
-  var lang = content.lang
+  var lang = content.lang || DEFAULT_LANG
   var verifyContent = {
     'zh-tw': genVerifyContentInZhTw,
     'en': genVerifyContentInEn

@@ -1,7 +1,8 @@
 const {
   REGISTRATION_URL,
   VERIFY_CODE_URL,
-  VERIFY_BY_RESET_PASSWORD_URL
+  VERIFY_BY_RESET_PASSWORD_URL,
+  DEFAULT_LANG
 } = require('../constant')
 
 /**
@@ -64,7 +65,7 @@ function genRegisterInEn (content) {
  * @param {Object} content
  */
 function genRegisterContent (content) {
-  var lang = content.lang
+  var lang = content.lang || DEFAULT_LANG
   var registerContent = {
     'zh-tw': genRegisterInZhTw,
     'en': genRegisterInEn
@@ -133,7 +134,7 @@ function genVerifyContentInEn (content) {
  * @param {Object} content
  */
 function genVerifyContent (content) {
-  var lang = content.lang
+  var lang = content.lang || DEFAULT_LANG
   var verifyContent = {
     'zh-tw': genVerifyContentInZhTw,
     'en': genVerifyContentInEn

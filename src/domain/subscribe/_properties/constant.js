@@ -18,6 +18,7 @@ exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
   ]
 
 // subjects/events
+exports.DEFAULT_LANG = process.env.LANG
 // (email)
 exports.EMAIL_REGISTRATION_FORM = process.env.ACCOUNT_EVENT_REGISTRATION
 exports.EMAIL_VERIFICATION_FORM = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
