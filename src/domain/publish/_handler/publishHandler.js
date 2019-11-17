@@ -1,4 +1,4 @@
-const producer = require('../../../../infrastructure/message_queue/rabbitmq/producer')
+const producer = require(`../../../../infrastructure/message_queue/rabbitmq/${process.env.PRODUCER}`)
 
 /**
  * TODO:

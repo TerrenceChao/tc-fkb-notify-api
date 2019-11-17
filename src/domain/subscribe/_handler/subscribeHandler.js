@@ -1,8 +1,8 @@
 const EventEmitter = require('events').EventEmitter
-const consumer = require('../../../../infrastructure/message_queue/rabbitmq/consumer')
+const consumer = require(`../../../../infrastructure/message_queue/rabbitmq/${process.env.CONSUMER}`)
 const taskHandler = require('./taskHandler')
 const CATEGORIES = require('../_properties/constant').CATEGORIES
-// const C = require('../_properties/constant')
+const C = require('../_properties/constant')
 
 /**
  * TODO:
@@ -51,21 +51,36 @@ const CATEGORIES = require('../_properties/constant').CATEGORIES
  * 4. [await] update msgs status: {sent: 1}
  */
 
-const handler = new EventEmitter()
-
+const linkageEvent = new EventEmitter()
 CATEGORIES.forEach(queueCategory => {
-  handler.on(queueCategory, () => {
+  linkageEvent.on(queueCategory, () => {
     consumer.receiveQueueMsg(
       queueCategory,
-      message => taskHandler(JSON.parse(message)).then(() => handler.emit(queueCategory))
+      message => taskHandler(JSON.parse(message)).then(() => linkageEvent.emit(queueCategory))
     )
       .catch(err => console.error(err))
   })
 })
 
-module.exports = function () {
-  CATEGORIES.forEach(queueCategory => handler.emit(queueCategory))
-  // setInterval(() => {
-  //   CATEGORIES.forEach(queueCategory => handler.emit(queueCategory))
-  // }, C.INTERVAL)
+const intervalEvent = new EventEmitter()
+CATEGORIES.forEach(queueCategory => {
+  intervalEvent.on(queueCategory, () => {
+    consumer
+      .receiveQueueMsg(queueCategory, message => taskHandler(JSON.parse(message)))
+      .catch(err => console.error(err))
+  })
+})
+
+const intervalConsume = () => {
+  return setInterval(() => {
+    CATEGORIES.forEach(queueCategory => intervalEvent.emit(queueCategory))
+  }, C.INTERVAL)
+}
+
+module.exports = {
+  linkage: () => CATEGORIES.forEach(queueCategory => linkageEvent.emit(queueCategory)),
+  interval: () => {
+    clearInterval(intervalConsume)
+    intervalConsume()
+  }
 }

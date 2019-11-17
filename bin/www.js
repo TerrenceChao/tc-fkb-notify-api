@@ -13,7 +13,7 @@ var http = require('http')
 /**
  * Start Subscriber!
  */
-// subscribeHandler()
+// subscribeHandler.interval()
 
 /**
  * Get port from environment and store in Express.

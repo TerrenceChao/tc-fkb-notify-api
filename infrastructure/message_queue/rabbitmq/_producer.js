@@ -30,7 +30,7 @@ class RabbitMQ {
 
     return Promise.resolve(self.open)
       .then((conn) => conn.createChannel())
-      .then((channel) => channel.assertQueue(queueName)
+      .then((channel) => channel.assertQueue(queueName, { durable: true })
         .then(ok => channel.sendToQueue(queueName, Buffer.from(msg), { persistent: true }))
         .then(data => {
           if (data) {
