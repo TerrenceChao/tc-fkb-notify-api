@@ -14,6 +14,8 @@ module.exports = function (messagePkg) {
   const material = messagePkg.packet.content
   const content = util.genEmailContent(subject, material)
 
+  console.log('email sender:', messagePkg.sender)
+
   return Promise.resolve(help.fetchContact(messagePkg.receivers, ['email']))
     .then(receiverList => util.sendMailList(receiverList.map(receiver => receiver.email), content))
     .catch(err => console.error('\nError caught (email service):', err, '\n'))

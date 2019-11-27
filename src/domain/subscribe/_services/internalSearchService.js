@@ -25,6 +25,7 @@ module.exports = function (messagePkg) {
   const event = messagePkg.packet.event
   const content = messagePkg.packet.content
 
+  console.log('internal-search sender:', messagePkg.sender)
   //   console.log(`\ninternal-search \nreceivers:`, receivers)
   //   console.log(`\n{internal search} event:`, event, `\n`)
   //   console.log(`content:`, content, `\n`)

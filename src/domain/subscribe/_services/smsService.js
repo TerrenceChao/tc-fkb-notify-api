@@ -15,6 +15,7 @@ module.exports = function (messagePkg) {
   const content = util.genSMSContent(subject, material)
 
   // console.log(`原始 sms 封包:`, material)
+  console.log('sms sender:', messagePkg.sender)
   console.log(`sms content subject:`, subject)
   console.log(`sms content:`, [content])
 

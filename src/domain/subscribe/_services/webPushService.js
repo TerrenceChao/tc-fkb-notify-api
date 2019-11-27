@@ -11,6 +11,8 @@ const ACCOUNT_IDENTITY = require('../_properties/constant').ACCOUNT_IDENTITY
  * 4. [await] update msgs status: {sent: 1}
  */
 module.exports = function (messagePkg) {
+  console.log('web-push sender:', messagePkg.sender)
+
   return Promise.resolve(fetchContact(messagePkg.receivers, ACCOUNT_IDENTITY))
     .then(userList => util.messagingRequest(userList, messagePkg.packet))
     .catch(err => console.error('\nError caught (web-push service):', err, '\n'))

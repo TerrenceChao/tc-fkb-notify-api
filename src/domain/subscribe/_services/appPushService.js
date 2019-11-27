@@ -8,10 +8,11 @@ var util = require('../_properties/push/util')
  * 3. [await] process messages. (read multiple user info according {uid, region} and deliver messages by SMS,email,...etc)
  * 4. [await] update msgs status: {sent: 1}
  */
-module.exports = async function (messagePkg) {
+module.exports = function (messagePkg) {
   // const subject = messagePkg.packet.event
   // const content = messagePkg.packet.content
 
+  console.log('app-push sender:', messagePkg.sender)
   // console.log(`app-push receivers:`, messagePkg.receivers)
   // console.log(` app-push content subject:`, subject)
   // console.log(`app-push content:`, [content])
