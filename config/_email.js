@@ -15,5 +15,5 @@ module.exports = {
       domain: process.env.MAILGUN_EMAIL_DOMAIN
     }
   },
-  specify: process.env.SPECIFY_EMAIL_VENDOR
+  specify: process.env.EMAIL_VENDOR
 }

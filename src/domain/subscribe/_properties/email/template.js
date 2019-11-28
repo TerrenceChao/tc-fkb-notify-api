@@ -32,7 +32,7 @@ function genRegisterContent (material) {
   const m = material
   const lang = m.lang || DEFAULT_LANG
   const template = registerTemplate[lang]
-  const params = [m.givenName, m.familyName, m.code, REGISTRATION_URL, m['verify-token'], m.code]
+  const params = [m.givenName, m.familyName, m.code, REGISTRATION_URL, m['verify-token'], m.expire, m.account.email]
   var content = {
     subject: template.content.subject,
     text: _.clone(template.content.text)
@@ -52,7 +52,7 @@ function genVerifyContent (material) {
   const m = material
   const lang = m.lang || DEFAULT_LANG
   const template = verifyTemplate[lang]
-  const params = [m.gender, m.givenName, m.familyName, m.code, VERIFY_CODE_URL, m['verify-token'], VERIFY_BY_RESET_PASSWORD_URL, m['verify-token'], m.reset]
+  const params = [m.gender, m.givenName, m.familyName, m.code, VERIFY_CODE_URL, m['verify-token'], VERIFY_BY_RESET_PASSWORD_URL, m['verify-token'], m.expire]
   var content = {
     subject: template.content.subject,
     text: _.clone(template.content.text)

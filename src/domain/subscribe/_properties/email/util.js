@@ -35,7 +35,7 @@ function genEmailContent (subject, material) {
  * @param {Object} content
  */
 function sendMail (recipient, content) {
-  vendors[C.SPECIFY_EMAIL_VENDOR].sendMail(recipient, content)
+  vendors[C.EMAIL_VENDOR].sendMail(recipient, content)
 }
 
 /**
@@ -44,7 +44,7 @@ function sendMail (recipient, content) {
  * @param {Object} content
  */
 function sendMailList (recipientList, content) {
-  vendors[C.SPECIFY_EMAIL_VENDOR].sendMailList(recipientList, content)
+  vendors[C.EMAIL_VENDOR].sendMailList(recipientList, content)
 }
 
 /**

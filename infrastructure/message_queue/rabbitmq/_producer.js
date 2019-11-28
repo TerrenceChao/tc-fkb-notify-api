@@ -1,12 +1,15 @@
+const config = require('config').mq
 const amqp = require('amqplib')
 
+const hosts = config.vendor[config.specify].hosts
+
 class RabbitMQ {
-  constructor () {
-    this.connect()
+  constructor (hosts) {
+    this.connect(hosts)
   }
 
-  connect () {
-    this.hosts = []
+  connect (hosts) {
+    this.hosts = hosts
     this.index = 0
     this.length = this.hosts.length
     this.open = amqp.connect(this.hosts[this.index])
@@ -56,4 +59,6 @@ class RabbitMQ {
   }
 }
 
-module.exports = new RabbitMQ()
+const rabbitmq = new RabbitMQ(hosts)
+
+module.exports = rabbitmq

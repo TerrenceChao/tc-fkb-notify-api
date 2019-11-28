@@ -6,7 +6,7 @@
 
 var _ = require('lodash')
 var help = require('../helper')
-const SEARCH_DOMAIN = require('../constant').SEARCH_DOMAIN
+const SEARCH_HOST = require('../constant').SEARCH_HOST
 
 /**
  *
@@ -16,7 +16,7 @@ const SEARCH_DOMAIN = require('../constant').SEARCH_DOMAIN
 function createDoc (recipient, content) {
   return Promise.resolve({
     method: 'PUT',
-    url: `${SEARCH_DOMAIN}/person/_doc/${recipient.uid}`,
+    url: `${SEARCH_HOST}/person/_doc/${recipient.uid}`,
     headers: { 'content-type': 'application/json' },
     body: content,
     json: true
@@ -33,7 +33,7 @@ function createDoc (recipient, content) {
 function updateDoc (recipient, content) {
   return Promise.resolve({
     method: 'POST',
-    url: `${SEARCH_DOMAIN}/person/_update/${recipient.uid}`,
+    url: `${SEARCH_HOST}/person/_update/${recipient.uid}`,
     headers: { 'content-type': 'application/json' },
     body: { doc: _.omit(content, ['uid', 'profileLink']) },
     json: true

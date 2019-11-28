@@ -49,10 +49,10 @@ exports.MESSAGING_PUSH_URL = config.message.pushUrl
 // email
 exports.EMAIL_SENDER = config.email.sender
 exports.MAILGUN_CONFIG = config.email.vendor.mailgun
-exports.SPECIFY_EMAIL_VENDOR = config.email.specify
+exports.EMAIL_VENDOR = config.email.specify
 
 // internail-search
-exports.SEARCH_DOMAIN = config.search.vendor[config.search.specify].domain
+exports.SEARCH_HOST = config.search.vendor[config.search.specify].host
 
 // sms
 // TODO: sms constant params

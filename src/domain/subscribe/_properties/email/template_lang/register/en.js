@@ -9,7 +9,7 @@ module.exports = {
     
     Or, clicking on the link below. 
     
-    {{3}}?token={{4}}&code={{5}}
+    {{3}}?token={{4}}&expire={{5}}&email={{6}}
     
     If you did not sign up for a Travmory account please disregard this email.
     
@@ -22,6 +22,7 @@ module.exports = {
     [2, 2],
     [3, 3],
     [4, 4],
-    [5, 5]
+    [5, 5],
+    [6, 6]
   ])
 }

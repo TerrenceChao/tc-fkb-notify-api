@@ -5,16 +5,16 @@ module.exports = {
     我們已收到你的密碼重設要求。
     請輸入以下驗證碼進行更改：
     
-      {{3}} (url-link:{{4}}?token={{5}})
+      {{3}} (link:{{4}}?token={{5}})
     
     
     你也可以改為直接變更密碼。
     
-      url-link:{{6}}?token={{7}}&reset={{8}}
+      link:{{6}}?token={{7}}&expire={{8}}
     
     
     你並沒有要求更改密碼？
-    如果你並未要求新密碼， url-link:請通知我們。`
+    如果你並未要求新密碼， link:請通知我們。`
   },
   replacement: new Map([
     [0, 2],

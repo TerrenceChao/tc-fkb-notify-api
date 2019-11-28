@@ -2,16 +2,16 @@
  * [infrastructure-configuration]
  */
 
-const ELASTICSEARCH_DOMAIN = process.env.ELASTICSEARCH_DOMAIN
-const SOLR_DOMAIN = process.env.SOLR_DOMAIN
+const ELASTICSEARCH_HOST = process.env.ELASTICSEARCH_HOST
+const SOLR_HOST = process.env.SOLR_HOST
 
 module.exports = {
   vendor: {
     elasticsearch: {
-      domain: ELASTICSEARCH_DOMAIN
+      host: ELASTICSEARCH_HOST
     },
     solr: {
-      domain: SOLR_DOMAIN
+      host: SOLR_HOST
     }
   },
   specify: process.env.SEARCH_VENDOR
