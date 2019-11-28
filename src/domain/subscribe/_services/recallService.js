@@ -9,13 +9,13 @@ var util = require('../_properties/recall/util')
  * 4. [await] update msgs status: {sent: 1}
  */
 module.exports = function (messagePkg) {
-  // const subject = messagePkg.packet.event
-  // const content = messagePkg.packet.content
+  const subject = messagePkg.packet.event
+  const content = messagePkg.packet.content
 
   console.log('recall sender:', messagePkg.sender)
-  // console.log(`recall receivers:`, messagePkg.receivers)
-  // console.log(` recall content subject:`, subject)
-  // console.log(`recall content:`, [content])
+  console.log('\trecall receivers:', messagePkg.receivers)
+  console.log('\trecall content subject:', subject)
+  console.log('\trecall content:', [content])
 
   return Promise.resolve(true)
     .catch(err => console.error('\nError caught (recall service):', err, '\n'))
