@@ -4,6 +4,7 @@ var smsService = require('../_services/smsService')
 var appPushService = require('../_services/appPushService')
 var webPushService = require('../_services/webPushService')
 var internalSearchService = require('../_services/internalSearchService')
+var recallService = require('../_services/recallService')
 
 // TODO: merge app-push and web-push
 var pushService = require('../_services/pushService')
@@ -14,6 +15,7 @@ const SERVICES = {
   'app-push': appPushService,
   'web-push': webPushService,
   'internal-search': internalSearchService,
+  'recall': recallService,
   'push': pushService
 }
 
