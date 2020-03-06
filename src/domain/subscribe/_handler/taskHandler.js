@@ -4,6 +4,7 @@ var smsService = require('../_services/smsService')
 var appPushService = require('../_services/appPushService')
 var webPushService = require('../_services/webPushService')
 var internalSearchService = require('../_services/internalSearchService')
+var recallService = require('../_services/recallService')
 
 // TODO: merge app-push and web-push
 var pushService = require('../_services/pushService')
@@ -14,7 +15,8 @@ const SERVICES = {
   'app-push': appPushService,
   'web-push': webPushService,
   'internal-search': internalSearchService,
-  'push': pushService,
+  'recall': recallService,
+  'push': pushService
 }
 
 /**
@@ -26,7 +28,7 @@ const SERVICES = {
  * 4. 更新狀態為[已處理]。
  * [現在關鍵變成如何讓"同一個subscriber"在短時間內讀取到"非重複"的records?]
  * [如果訊息直接丟失的話，就沒轍了...但rabbitmq不就是保證訊息不能丟失嗎？]
- * 
+ *
  * TODO: [special-improved]
  * 1. [no-await] create one record({sent: 0}) in DB if there's [no-duplicate].
  * 2. [await] read multiple unsent records({sent: 0}) with specific id(assume K = 10. MOD 10 = 6 for s6) in DB.
@@ -34,8 +36,8 @@ const SERVICES = {
  * 4. [await] update msgs status: {sent: 1}
  */
 module.exports = function (message) {
-  const package = _.omit(message, ['channels'])
+  const messagePkg = _.omit(message, ['channels'])
 
-  return Promise.all(message.channels.map(channel => SERVICES[channel](package)))
+  return Promise.all(message.channels.map(channel => SERVICES[channel](messagePkg)))
     .catch(err => console.error('Error caught by task handler:', err))
 }

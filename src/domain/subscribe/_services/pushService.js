@@ -1,6 +1,5 @@
 var util = require('../_properties/push/util')
 
-
 /**
  * TODO: [special-improved]
  * 1. [no-await] create one record({sent: 0}) in DB if there's [no-duplicate].
@@ -9,6 +8,7 @@ var util = require('../_properties/push/util')
  * 3. [await] process messages. (read multiple user info according {uid, region} and deliver messages by SMS,email,...etc)
  * 4. [await] update msgs status: {sent: 1}
  */
-module.exports = async function (package) {
+module.exports = function (messagePkg) {
   // TODO: [app-push,web-push合併建立同張table.並且可以判斷user是否在線上.]
+  console.log('push sender:', messagePkg.sender)
 }

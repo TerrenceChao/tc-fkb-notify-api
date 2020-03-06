@@ -1,4 +1,4 @@
-var util = require('../_properties/push/util')
+var util = require('../_properties/recall/util')
 
 /**
  * TODO: [special-improved]
@@ -9,14 +9,14 @@ var util = require('../_properties/push/util')
  * 4. [await] update msgs status: {sent: 1}
  */
 module.exports = function (messagePkg) {
-  // const subject = messagePkg.packet.event
-  // const content = messagePkg.packet.content
+  const subject = messagePkg.packet.event
+  const content = messagePkg.packet.content
 
-  console.log('app-push sender:', messagePkg.sender)
-  // console.log(`app-push receivers:`, messagePkg.receivers)
-  // console.log(` app-push content subject:`, subject)
-  // console.log(`app-push content:`, [content])
+  console.log('recall sender:', messagePkg.sender)
+  console.log('\trecall receivers:', messagePkg.receivers)
+  console.log('\trecall content subject:', subject)
+  console.log('\trecall content:', [content])
 
   return Promise.resolve(true)
-    .catch(err => console.error('\nError caught (app-push service):', err, '\n'))
+    .catch(err => console.error('\nError caught (recall service):', err, '\n'))
 }

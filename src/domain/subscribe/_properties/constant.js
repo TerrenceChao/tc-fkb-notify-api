@@ -1,57 +1,58 @@
-// http
-exports.MESSAGING_HEADERS = {
-  'content-type': 'application/json'
-}
-exports.MESSAGING_PUSH_URL = `${process.env.MESSAGING_HOST}${process.env.MESSAGING_PATH_PUSH}`
+const config = require('config')
 
-const FRONTEND_HOST = process.env.FRONTEND_HOST
-const FRONTEND_PATH_REGISTRATION = process.env.FRONTEND_PATH_REGISTRATION
-const FRONTEND_PATH_RECOVER_BY_CODE = process.env.FRONTEND_PATH_RECOVER_BY_CODE
-const FRONTEND_PATH_RECOVER_BY_PASSWORD = process.env.FRONTEND_PATH_RECOVER_BY_PASSWORD
-
-exports.REGISTRATION_URL = `${FRONTEND_HOST}${FRONTEND_PATH_REGISTRATION}`
-exports.VERIFY_CODE_URL = `${FRONTEND_HOST}${FRONTEND_PATH_RECOVER_BY_CODE}`
-exports.VERIFY_BY_RESET_PASSWORD_URL = `${FRONTEND_HOST}${FRONTEND_PATH_RECOVER_BY_PASSWORD}`
-
-exports.RETRY_LIMIT = parseInt(process.env.RETRY_LIMIT) || 3
-exports.DELAY = parseInt(process.env.DELAY) || 500
-
-
-// common format
-exports.INTERVAL = parseInt(process.env.INTERVAL) || 60
-
+/**
+ * [business-logic]
+ */
+// common
 exports.CATEGORIES = process.env.CATEGORIES.split(',')
-
 exports.ACCOUNT_IDENTITY = process.env.ACCOUNT_IDENTITY ?
   process.env.ACCOUNT_IDENTITY.split(',') : [
     'region',
-    'uid',
+    'uid'
   ]
-
 exports.ACCOUNT_CONTACT_FIELDS = process.env.ACCOUNT_CONTACT_FIELDS ?
   process.env.ACCOUNT_CONTACT_FIELDS.split(',') : [
     'email',
     'phone',
-    'device',
+    'device'
   ]
 
+// subjects/events
+exports.DEFAULT_LANG = process.env.LANG
+// (email)
+exports.EMAIL_REGISTRATION_FORM = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.EMAIL_VERIFICATION_FORM = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
+// (sms)
+exports.SMS_REGISTRATION_FORM = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.SMS_VERIFICATION_FORM = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
+// (internal-search)
+exports.SEARCH_EVENT_REGISTRATION = process.env.ACCOUNT_EVENT_REGISTRATION
+exports.SEARCH_EVENT_UPDATE_PUBLIC_INFO = process.env.SETTING_EVENT_UPDATE_PUBLIC_INFO
+
+// replaceable content elements
+exports.REGISTRATION_URL = config.frontend.registrationUrl
+exports.VERIFY_CODE_URL = config.frontend.verifyCodeUrl
+exports.VERIFY_BY_RESET_PASSWORD_URL = config.frontend.verifyByResetPasswordUrl
+
+/**
+ * [infrastructure-configuration]
+ */
+// common
+exports.HEADERS = config.app.headers
+exports.RETRY_LIMIT = config.app.retryLimit
+exports.DELAY = config.app.delay
+exports.INTERVAL = config.app.interval
+
+// app-push & web-push
+exports.MESSAGING_PUSH_URL = config.message.pushUrl
 
 // email
-exports.EMAIL_DOMAIN = process.env.MAILGUN_EMAIL_DOMAIN
-exports.EMAIL_API_KEY = process.env.MAILGUN_API_KEY
-// subjects of email
-exports.REGISTRATION_EMAIL = process.env.ACCOUNT_EVENT_REGISTRATION
-exports.VERIFICATION_EMAIL = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
+exports.EMAIL_SENDER = config.email.sender
+exports.MAILGUN_CONFIG = config.email.vendor.mailgun
+exports.EMAIL_VENDOR = config.email.specify
 
 // internail-search
+exports.SEARCH_HOST = config.search.vendor[config.search.specify].host
 
 // sms
-// subjects of sms()
-exports.REGISTRATION_SMS = process.env.ACCOUNT_EVENT_REGISTRATION
-exports.VERIFICATION_SMS = process.env.ACCOUNT_EVENT_VALIDATE_ACCOUNT
-
-// app-push
-
-// web-push
-
-// TODO: push
+// TODO: sms constant params

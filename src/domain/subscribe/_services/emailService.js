@@ -1,7 +1,5 @@
-var _ = require('lodash')
 var help = require('../_properties/helper')
 var util = require('../_properties/email/util')
-
 
 /**
  * TODO: [special-improved]
@@ -11,16 +9,14 @@ var util = require('../_properties/email/util')
  * 3. [await] process messages. (read multiple user info according {uid, region} and deliver messages by SMS,email,...etc)
  * 4. [await] update msgs status: {sent: 1}
  */
-module.exports = function (package) {
-  const subject = package.packet.event
-  const material = package.packet.content
+module.exports = function (messagePkg) {
+  const subject = messagePkg.packet.event
+  const material = messagePkg.packet.content
   const content = util.genEmailContent(subject, material)
 
-  // console.log(`原始 email 封包:`, material)
-  // console.log(` email content subject:`, subject)
-  console.log(`email content:`, [content.subject, content.text])
+  console.log('email sender:', messagePkg.sender)
 
-  return Promise.resolve(help.fetchContact(package.receivers, ['email']))
-    .then(receiverList => receiverList.forEach(receiver => util.sendMail(receiver.email, content)))
-    .catch(err => console.error('\nError caught (email service):', err, `\n`))
+  return Promise.resolve(help.fetchContact(messagePkg.receivers, ['email']))
+    .then(receiverList => util.sendMailList(receiverList.map(receiver => receiver.email), content))
+    .catch(err => console.error('\nError caught (email service):', err, '\n'))
 }
