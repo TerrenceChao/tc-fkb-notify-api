@@ -5,6 +5,7 @@ const config = require('config')
  */
 // common
 exports.CATEGORIES = process.env.CATEGORIES.split(',')
+exports.CHANNELS = process.env.CHANNELS.split(',')
 exports.ACCOUNT_IDENTITY = process.env.ACCOUNT_IDENTITY ?
   process.env.ACCOUNT_IDENTITY.split(',') : [
     'region',

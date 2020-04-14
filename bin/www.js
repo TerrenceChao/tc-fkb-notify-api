@@ -8,12 +8,12 @@ require('dotenv').config()
 var app = require('../app')
 var debug = require('debug')('tc-fkb-notify-api:server')
 var http = require('http')
-// var subscribeHandler = require('../src/domain/subscribe/_handler/subscribeHandler')
+// var subCategoryHandler = require('../src/domain/subscribe/_handler/subCategoryHandler')
 
 /**
  * Start Subscriber!
  */
-// subscribeHandler.interval()
+// subCategoryHandler.interval()
 
 /**
  * Get port from environment and store in Express.

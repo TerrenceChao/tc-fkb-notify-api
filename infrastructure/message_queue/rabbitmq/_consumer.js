@@ -11,15 +11,15 @@ class RabbitMQ {
     this.open = amqp.connect(this.hosts[this.index])
   }
 
-  receiveQueueMsg (queueName, receiveCallBack, callbackMsg) {
+  receiveQueueMsg (queue, receiveCallBack, callbackMsg) {
     const self = this
 
     return Promise.resolve(self.open)
       .then((conn) => conn.createChannel())
-      .then((channel) => channel.assertQueue(queueName, { durable: true })
+      .then((channel) => channel.assertQueue(queue, { durable: true })
         .then((ok) => {
           channel.prefetch(1)
-          channel.consume(queueName, function (msg) {
+          channel.consume(queue, function (msg) {
             if (msg !== null) {
               const data = msg.content.toString()
               channel.ack(msg)

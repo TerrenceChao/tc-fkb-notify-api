@@ -28,13 +28,13 @@ class RabbitMQ {
     return this.open
   }
 
-  sendQueueMsg (queueName, msg, callbackMsg) {
+  sendQueueMsg (queue, msg, callbackMsg) {
     const self = this
 
     return Promise.resolve(self.open)
       .then((conn) => conn.createChannel())
-      .then((channel) => channel.assertQueue(queueName, { durable: true })
-        .then(ok => channel.sendToQueue(queueName, Buffer.from(msg), { persistent: true }))
+      .then((channel) => channel.assertQueue(queue, { durable: true })
+        .then(ok => channel.sendToQueue(queue, Buffer.from(msg), { persistent: true }))
         .then(data => {
           if (data) {
             callbackMsg && callbackMsg('success')
